@@ -9,7 +9,11 @@ require('dotenv').config();
 const app = express();
 
 // Middleware
-app.use(cors());
+app.use(cors({
+  origin: 'https://devoopfinalfeedback-production.up.railway.app',  // ✅ Allow your frontend domain
+  methods: ['GET', 'POST', 'PUT', 'DELETE'],
+  credentials: true
+}));
 app.use(bodyParser.json());
 
 // Serve static files (e.g., index.html) from the 'public' directory
