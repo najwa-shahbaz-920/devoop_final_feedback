@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Create Feedback</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f2f2f2;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+
+    .feedback-container {
+      background-color: #fff;
+      padding: 30px 40px;
+      border-radius: 10px;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+      width: 400px;
+    }
+
+    h2 {
+      text-align: center;
+      color: #333;
+    }
+
+    input, select, textarea, button {
+      width: 100%;
+      padding: 10px;
+      margin: 10px 0;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      font-size: 15px;
+    }
+
+    button {
+      background-color: #28a745;
+      color: white;
+      border: none;
+      cursor: pointer;
+      font-weight: bold;
+    }
+
+    button:hover {
+      background-color: #218838;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="feedback-container">
+    <h2>Submit Your Feedback</h2>
+    <form id="feedbackForm">
+      <input type="text" id="name" name="name" placeholder="Your Name" required>
+      <input type="email" id="email" name="email" placeholder="Your Email" required>
+      
+      <select id="department" name="department" required>
+        <option value="">Select Department</option>
+        <option value="Computer Science">Computer Science</option>
+        <option value="Electrical Engineering">Electrical Engineering</option>
+        <option value="Mechanical">Mechanical</option>
+        <option value="Business">Business</option>
+      </select>
+
+      <select id="category" name="category" required>
+        <option value="">Feedback Category</option>
+        <option value="Website Issue">Website Issue</option>
+        <option value="Suggestion">Suggestion</option>
+        <option value="Complaint">Complaint</option>
+        <option value="General Feedback">General Feedback</option>
+      </select>
+
+      <label for="rating">Rate Us:</label>
+      <select id="rating" name="rating" required>
+        <option value="">Select Rating</option>
+        <option value="1">1 - Poor</option>
+        <option value="2">2 - Fair</option>
+        <option value="3">3 - Good</option>
+        <option value="4">4 - Very Good</option>
+        <option value="5">5 - Excellent</option>
+      </select>
+
+      <textarea id="message" name="message" placeholder="Your Feedback" rows="5" required></textarea>
+      <button type="submit">Send Feedback</button>
+    </form>
+  </div>
+
+<script>
+document.getElementById("feedbackForm").addEventListener("submit", async function(event) {
+  event.preventDefault();
+
+  const form = event.target;
+  const formData = {
+    name: form.name.value,
+    email: form.email.value,
+    department: form.department.value,
+    category: form.category.value,
+    rating: parseInt(form.rating.value),
+    message: form.message.value
+  };
+
+  try {
+    const response = await fetch("http://localhost:3000/feedback", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(formData)
+    });
+
+    const result = await response.json();
+    if (response.ok) {
+      alert("Feedback submitted successfully!");
+      form.reset();
+    } else {
+      alert("Error: " + result.message);
+    }
+  } catch (error) {
+    alert("Server error: " + error.message);
+  }
+});
+</script>
+
+</body>
+</html>
