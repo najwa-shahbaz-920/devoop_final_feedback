@@ -6,12 +6,14 @@ require('dotenv').config();
 
 
 
+
+
 const app = express();
 
 // Middleware
 app.use(cors({
-  origin: 'https://devoopfinalfeedback-production.up.railway.app',  // ✅ Allow your frontend domain
-  methods: ['GET', 'POST', 'PUT', 'DELETE'],
+  origin: 'https://devoopfinalfeedback-production.up.railway.app', // <-- Tumhara frontend
+  methods: ['GET', 'POST'],
   credentials: true
 }));
 app.use(bodyParser.json());
