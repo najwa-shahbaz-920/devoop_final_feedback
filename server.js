@@ -11,11 +11,7 @@ require('dotenv').config();
 const app = express();
 
 // Middleware
-app.use(cors({
-  origin: 'https://devoopfinalfeedback-production.up.railway.app', // <-- Tumhara frontend
-  methods: ['GET', 'POST'],
-  credentials: true
-}));
+app.use(cors());
 app.use(bodyParser.json());
 
 // Serve static files (e.g., index.html) from the 'public' directory
